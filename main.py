@@ -5,6 +5,8 @@ import sqlite3
 
 from nicegui import ui
 
+ui.dark_mode().disable()
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(current_dir, 'sayings.json')
 
@@ -98,14 +100,14 @@ def show_random():
     label_category.set_text(f"类别：{category}" if category else '')
 
 with ui.header().classes(replace='row items-center justify-between px-6 py-3 bg-white shadow-sm') as header, ui.tabs().classes('gap-2 bg-slate-100 p-1 rounded-full') as tabs:
-    ui.label('AsaSaying').classes('text-2xl font-bold text-slate-900')
+    
     ui.tab('随机浏览').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
     ui.tab('上传分享').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
     ui.tab('索引查找').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
     ui.tab('支持作者').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
 
 with ui.footer(value=True) as footer:
-    ui.label()
+    ui.label('AsaSaying').classes('text-2xl font-bold text-slate-900')
 
 with ui.page_sticky(position='bottom-right', x_offset=20, y_offset=20):
     ui.button(on_click=footer.toggle, icon='contact_support').props('fab')
