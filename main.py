@@ -100,20 +100,28 @@ def show_random():
     label_category.set_text(f"类别：{category}" if category else '')
 
 with ui.header().classes(replace='row items-center justify-between px-6 py-3 bg-white shadow-sm') as header, ui.tabs().classes('gap-2 bg-slate-100 p-1 rounded-full') as tabs:
-    
-    ui.tab('随机浏览').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
-    ui.tab('上传分享').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
-    ui.tab('索引查找').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
-    ui.tab('支持作者').classes('px-4 py-2 rounded-full text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
+    ui.label("AsaSaying").classes('text-2xl font-semibold text-slate-900')
+    ui.button(on_click=lambda: left_drawer.toggle(), icon='menu').props('flat color=black')
+    ui.label("点击“☰”按钮打开目录").classes('text-center text-slate-500')
+
 
 with ui.footer(value=True) as footer:
-    ui.label('AsaSaying').classes('text-2xl font-bold text-slate-900')
+    ui.label('© 2026 Jade-Cyan. All Rights Reserved.').classes('text-center leading-relaxed')
 
 with ui.page_sticky(position='bottom-right', x_offset=20, y_offset=20):
     ui.button(on_click=footer.toggle, icon='contact_support').props('fab')
 
+with ui.left_drawer(value=True).classes('bg-blue-100') as left_drawer, ui.tabs().classes('flex flex-col gap-2 bg-slate-100 p-1 rounded-xl w-full').props('vertical') as tabs:
+    ui.label("目录").classes('text-center text-2xl font-semibold text-slate-900')
+    ui.label("点击右侧空白隐藏目录").classes('text-center text-slate-500')
+    ui.tab('随机浏览').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
+    ui.tab('上传分享').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
+    ui.tab('索引查找').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
+    ui.tab('支持作者').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
+
 with ui.tab_panels(tabs, value='随机浏览').classes('w-full min-h-screen bg-slate-50 py-8') as weblist:
-    with ui.tab_panel('随机浏览'):  # noqa: SIM117
+    with ui.tab_panel('随机浏览'):
+        left_drawer.set_value(False)
         with ui.column().classes('w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 items-center'):
             ui.label('随机浏览').classes('text-2xl font-semibold text-slate-900')
             ui.separator().classes('my-3 w-full')
@@ -125,7 +133,8 @@ with ui.tab_panels(tabs, value='随机浏览').classes('w-full min-h-screen bg-s
             ui.separator().classes('my-3 w-full')
             btn = ui.button('🎲 随缘', on_click=show_random).classes('mt-6 px-6 py-3 text-lg rounded-full shadow-md bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:scale-105 transition-transform').props('elevated')
 
-    with ui.tab_panel('上传分享'):  # noqa: SIM117
+    with ui.tab_panel('上传分享'):
+        left_drawer.set_value(False)
         with ui.column().classes('w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 items-center'):
             # 从数据库读取当前条目数以显示下一个 id（更可靠）
             try:
@@ -135,7 +144,7 @@ with ui.tab_panels(tabs, value='随机浏览').classes('w-full min-h-screen bg-s
                 oldui = c.fetchone()[0]
                 conn.close()
             except Exception:  # noqa: BLE001
-                oldui = len(a) # type: ignore  # noqa: F821
+                oldui = len(a) # type: ignore
             newui = oldui + 1
             ui.label('ui：'+ str(newui)).classes('text-sm text-slate-500')
             content = ui.textarea(label='正文', placeholder='在此输入要分享的名言或段落（支持多行）', value='').props('autogrow').classes('w-full max-w-xl')
@@ -183,6 +192,7 @@ with ui.tab_panels(tabs, value='随机浏览').classes('w-full min-h-screen bg-s
             gender_put = ui.radio(['扎心现实', '豁达解压',"治愈清醒","人间清醒","摆烂哲学","治愈温柔"], value=None)
             ui.button('上传', on_click=upload_handler).classes('mt-6 px-6 py-2 text-base rounded-lg shadow-sm bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:scale-105 transition-transform').props('elevated')
     with ui.tab_panel('索引查找'):
+        left_drawer.set_value(False)
         with ui.column().classes('w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 items-center'):
             ui.label("类别").classes('text-base font-medium text-slate-700 text-center')
             gender_get = ui.radio(['扎心现实', '豁达解压', "治愈清醒", "人间清醒", "摆烂哲学", "治愈温柔"], value=None)
@@ -228,6 +238,7 @@ with ui.tab_panels(tabs, value='随机浏览').classes('w-full min-h-screen bg-s
             results_label = ui.label('').classes('whitespace-pre-wrap text-center p-4 max-h-64 overflow-auto bg-slate-50 rounded-lg w-full')
 
     with ui.tab_panel('支持作者'):
+        left_drawer.set_value(False)
         with ui.column().classes('text-center w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 items-start gap-3'):
             ui.label("如果你觉得这里收集的句子刚好戳中情绪、偶尔能治愈片刻。欢迎随缘投喂！").classes('text-center text-lg text-slate-800')
                 
