@@ -117,7 +117,7 @@ with ui.left_drawer(value=True).classes('bg-blue-100') as left_drawer, ui.tabs()
     ui.tab('随机浏览').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
     ui.tab('上传分享').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
     ui.tab('索引查找').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
-    ui.tab('支持作者').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
+    ui.tab('关于网站').classes('w-full px-4 py-3 rounded-lg text-sm text-slate-700 hover:text-slate-900 hover:bg-white transition-colors')
 
 with ui.tab_panels(tabs, value='随机浏览').classes('w-full min-h-screen bg-slate-50 py-8') as weblist:
     with ui.tab_panel('随机浏览'):
@@ -237,9 +237,29 @@ with ui.tab_panels(tabs, value='随机浏览').classes('w-full min-h-screen bg-s
             ui.label("搜索结果").classes('text-lg font-semibold text-slate-800')
             results_label = ui.label('').classes('whitespace-pre-wrap text-center p-4 max-h-64 overflow-auto bg-slate-50 rounded-lg w-full')
 
-    with ui.tab_panel('支持作者'):
-        left_drawer.set_value(False)
+    with ui.tab_panel('关于网站'):
         with ui.column().classes('text-center w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 items-start gap-3'):
+            ui.label("源码位置").classes('text-base font-medium text-slate-700 text-center')
+            ui.link("https://github.com/Jade-Cyan/AsaSaying","https://github.com/Jade-Cyan/AsaSaying")
+
+        with ui.column().classes('text-center w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 items-start gap-3'):
+            ui.label("更新日志").classes('text-base font-medium text-slate-700 text-center')  
+            """26.7.29更新日志"""
+            ui.separator().classes('my-3 w-full')
+            ui.label("26.7.29").classes('text-base font-medium text-slate-700 text-center')
+            ui.label("1.新增左侧目录栏").classes('text-center text-lg text-slate-800')
+            ui.label("2.新增源码位置和更新日志").classes('text-center text-lg text-slate-800')
+            ui.label("以及一些文本/ui方面问题").classes('text-center text-slate-500')
+            """26.7.28更新日志"""
+            ui.separator().classes('my-3 w-full')
+            ui.label("26.7.28").classes('text-base font-medium text-slate-700 text-center')
+            ui.label("网站部署上线").classes('text-center text-lg text-slate-800')
+            ui.label("源码位置：https://github.com/Jade-Cyan/AsaSaying").classes('text-center text-slate-500')
+
+            
+        with ui.column().classes('text-center w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl border border-slate-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 items-start gap-3'):
+            ui.label("支持作者").classes('text-base font-medium text-slate-700 text-center')
+            ui.separator().classes('my-3 w-full')
             ui.label("如果你觉得这里收集的句子刚好戳中情绪、偶尔能治愈片刻。欢迎随缘投喂！").classes('text-center text-lg text-slate-800')
                 
             ui.label("os：电子喵喵也需要投喂的^__^").classes('text-center text-slate-500')
