@@ -77,6 +77,9 @@ init_db()
 
 @ui.page("/")
 def main():
+    # Add Vercel Web Analytics
+    ui.add_head_html('<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>')
+    
     ui.dark_mode().disable()
 
 #     current_dir = os.path.dirname(os.path.abspath(__file__))
